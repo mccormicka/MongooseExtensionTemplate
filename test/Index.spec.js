@@ -269,7 +269,7 @@ describe('MongooseExtension Tests', function () {
                 {
                     tableName: 'randomTableName2',
                     schema: {
-                        name:String,
+
                         customType: {
                             type: Boolean,
                             'default': true
