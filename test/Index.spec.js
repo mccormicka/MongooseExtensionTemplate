@@ -20,61 +20,104 @@ describe('MongooseExtension Tests', function () {
 
         describe('Create dynamic methods', function () {
 
-            it('Create a static method on the model called createRandomTableName', function (done) {
-                expect(typeof Model.createRandomTableName === 'function').toBeTruthy();
-                done();
-            });
+            describe('Static', function () {
 
-            it('Create a method on the model called createRandomTableName', function (done) {
-                Model.create({}, function (err, result) {
-                    expect(err).toBeNull();
-                    expect(result).toBeTruthy();
-                    if (result) {
-                        expect(typeof result.createRandomTableName === 'function').toBeTruthy();
-                        done();
-                    } else {
-                        done('Error creating model 1');
-                    }
+                it('Create a method on the model called create + tableName ', function (done) {
+                    expect(typeof Model.createRandomTableName === 'function').toBeTruthy();
+                    done();
+                });
+
+                it('Create a method on the model called remove + tableName ', function (done) {
+                    expect(typeof Model.removeRandomTableName === 'function').toBeTruthy();
+                    done();
+                });
+
+                it('Create a method on the model called find + tableName ', function (done) {
+                    expect(typeof Model.findRandomTableName === 'function').toBeTruthy();
+                    done();
+                });
+
+                it('Create a method on the model called findBy + tableName ', function (done) {
+                    expect(typeof Model.findByRandomTableName === 'function').toBeTruthy();
+                    done();
+                });
+
+                it('Createa a method on the model that returns the extension by tableName', function (done) {
+                    expect(typeof Model.randomTableName === 'function').toBeTruthy();
+                    Model.randomTableName(function (err, result) {
+                        expect(err).toBeNull();
+                        expect(result).toBeDefined();
+                        if (result) {
+                            expect(result.TYPE).toBe('randomtablename');
+                            done(err);
+                        } else {
+                            done('Error returning extension object');
+                        }
+                    });
                 });
             });
 
-            it('Create a static method on the model called findRandomTableName', function (done) {
-                expect(typeof Model.findRandomTableName === 'function').toBeTruthy();
-                done();
-            });
+            describe('Instance', function () {
 
-            it('Create a method on the model called findRandomTableName', function (done) {
-                Model.create({}, function (err, result) {
-                    expect(err).toBeNull();
-                    expect(result).toBeTruthy();
-                    if (result) {
-                        expect(typeof result.findRandomTableName === 'function').toBeTruthy();
-                        done();
-                    } else {
-                        done('Error creating model');
-                    }
+                it('Create a method on the model called create + tableName ', function (done) {
+                    Model.create({}, function (err, result) {
+                        expect(err).toBeNull();
+                        expect(result).toBeTruthy();
+                        if (result) {
+                            expect(typeof result.createRandomTableName === 'function').toBeTruthy();
+                            done();
+                        } else {
+                            done('Error creating model 1');
+                        }
+                    });
                 });
-            });
 
-            it('Return the extension randomTableName', function (done) {
-                Model.create({}, function (err, result) {
-                    expect(err).toBeNull();
-                    expect(result).toBeTruthy();
-                    if (result) {
-                        expect(typeof result.randomTableName === 'function').toBeTruthy();
-                        result.randomTableName(function (err, result) {
-                            expect(err).toBeNull();
-                            expect(result).toBeDefined();
-                            if (result) {
-                                expect(result.TYPE).toBe('randomtablename');
-                                done(err);
-                            } else {
-                                done('Error returning extension object');
-                            }
-                        });
-                    } else {
-                        done('Error creating model');
-                    }
+                it('Create a method on the model called remove + tableName ', function (done) {
+                    Model.create({}, function (err, result) {
+                        expect(err).toBeNull();
+                        expect(result).toBeTruthy();
+                        if (result) {
+                            expect(typeof result.removeRandomTableName === 'function').toBeTruthy();
+                            done();
+                        } else {
+                            done('Error creating model 1');
+                        }
+                    });
+                });
+
+                it('Create a method on the model called find + tableName ', function (done) {
+                    Model.create({}, function (err, result) {
+                        expect(err).toBeNull();
+                        expect(result).toBeTruthy();
+                        if (result) {
+                            expect(typeof result.findRandomTableName === 'function').toBeTruthy();
+                            done();
+                        } else {
+                            done('Error creating model');
+                        }
+                    });
+                });
+
+                it('Createa a method on the model that returns the extension by tableName', function (done) {
+                    Model.create({}, function (err, result) {
+                        expect(err).toBeNull();
+                        expect(result).toBeTruthy();
+                        if (result) {
+                            expect(typeof result.randomTableName === 'function').toBeTruthy();
+                            result.randomTableName(function (err, result) {
+                                expect(err).toBeNull();
+                                expect(result).toBeDefined();
+                                if (result) {
+                                    expect(result.TYPE).toBe('randomtablename');
+                                    done(err);
+                                } else {
+                                    done('Error returning extension object');
+                                }
+                            });
+                        } else {
+                            done('Error creating model');
+                        }
+                    });
                 });
             });
 
@@ -269,7 +312,7 @@ describe('MongooseExtension Tests', function () {
                 {
                     tableName: 'randomTableName2',
                     schema: {
-
+                        name:String,
                         customType: {
                             type: Boolean,
                             'default': true
