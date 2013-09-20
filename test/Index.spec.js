@@ -186,7 +186,7 @@ describe('MongooseExtension Tests', function () {
             });
         });
 
-        it('Be able to find an extension by its name', function (done) {
+        it('Be able to find an extension by its name and associated model', function (done) {
             Model.create({}, function (err, model) {
                 expect(err).toBeNull();
                 expect(model).toBeTruthy();
@@ -198,6 +198,37 @@ describe('MongooseExtension Tests', function () {
                             expect(err).toBeNull();
                             expect(result).toBeTruthy();
                             model.findRandomTableName({name: 'TestExtension2'}, function (err, result) {
+                                expect(err).toBeNull();
+                                expect(result).toBeDefined();
+                                if (result) {
+                                    console.log('RESULT IS', result);
+                                    expect(result.length).toBe(1);
+                                    expect(result[0].name).toBe('TestExtension2');
+                                    done(err);
+                                } else {
+                                    done('Can not find associated extension');
+                                }
+                            });
+                        });
+                    });
+                } else {
+                    done('Error creating model');
+                }
+            });
+        });
+
+        it('Be able to find an extension by its name without association to a model', function (done) {
+            Model.create({}, function (err, model) {
+                expect(err).toBeNull();
+                expect(model).toBeTruthy();
+                if (model) {
+                    model.createRandomTableName({name: 'TestExtension'}, function (err, result) {
+                        expect(err).toBeNull();
+                        expect(result).toBeTruthy();
+                        model.createRandomTableName({name: 'TestExtension2'}, function (err, result) {
+                            expect(err).toBeNull();
+                            expect(result).toBeTruthy();
+                            Model.findRandomTableName({name: 'TestExtension2'}, function (err, result) {
                                 expect(err).toBeNull();
                                 expect(result).toBeDefined();
                                 if (result) {

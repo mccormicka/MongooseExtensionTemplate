@@ -1,6 +1,6 @@
 {
-  "name": "mongooseextensiontemplate",
-  "description": "mongooseextensiontemplate",
+  "name": "mongooseextension",
+  "description": "mongooseextension",
   "version": "0.0.1",
   "author": {
     "name": "Anthony McCormick",
